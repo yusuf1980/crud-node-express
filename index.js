@@ -12,12 +12,19 @@ const myLogger = function (req, res, next) {
 
 app.use(myLogger)
 
+app.set('view engine', 'ejs')
+
 app.get("/", function (req, res) {
-  res.send(req.time.toString());
+  const kelas = {
+    id: 1,
+    nama: 'JavaScript',
+    date: req.time.toString()
+  }
+  res.render('pages/index', {kelas: kelas});
 });
 
 app.get("/about", (req, res) => {
-  res.send("About");
+  res.render('pages/about');
 });
 
 app.use(userRouter);
