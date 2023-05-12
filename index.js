@@ -10,6 +10,10 @@ const myLogger = function (req, res, next) {
   next();
 };
 
+/* connect to mongodb */
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/yusoft');
+
 app.use(myLogger)
 
 app.set('view engine', 'ejs')
@@ -27,6 +31,8 @@ app.get("/", function (req, res) {
 app.get("/about", (req, res) => {
   res.render('pages/about');
 });
+
+app.get("/users/create", (req, res) => res.render('pages/user/create'))
 
 app.use(userRouter);
 

@@ -1,3 +1,5 @@
+const User = require('../models/user')
+
 let users = [
     {id: 1, name: 'Yugoh', email: 'yugoh@gmail.com'},
     {id: 2, name: 'Doremi', email: 'doremi@gmail.com'},
@@ -8,15 +10,29 @@ module.exports = {
         res.render('pages/user/index', {users:users})
     },
     store: (req, res)=>{
-        users.push(req.body)
-        // res.send(users)
-        res.send({
-            status: true,
-            data: users,
-            message: 'Data users berhasil disimpan',
-            method: req.method,
-            url: req.url,
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
         })
+
+        user.save()
+            .then((data) => {
+                // console.log(res)
+                res.redirect('/users')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        // users.push(req.body)
+        // res.send(users)
+        // res.send({
+        //     status: true,
+        //     data: users,
+        //     message: 'Data users berhasil disimpan',
+        //     method: req.method,
+        //     url: req.url,
+        // })
     },
     update: (req, res)=>{
         const id = req.params.id
