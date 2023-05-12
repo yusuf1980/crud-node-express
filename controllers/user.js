@@ -5,20 +5,7 @@ let users = [
 
 module.exports = {
     index: (req, res)=>{
-        if(users.length) {
-            res.json({
-                status: true,
-                data: users,
-                method: req.method,
-                url: req.url
-            })
-        }
-        else {
-            res.json({
-                status: false,
-                message: "Data users masih kosong"
-            })
-        }
+        res.render('pages/user/index', {users:users})
     },
     store: (req, res)=>{
         users.push(req.body)

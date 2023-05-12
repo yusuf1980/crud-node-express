@@ -13,6 +13,7 @@ const myLogger = function (req, res, next) {
 app.use(myLogger)
 
 app.set('view engine', 'ejs')
+app.use('/assets', express.static('public'))
 
 app.get("/", function (req, res) {
   const kelas = {
